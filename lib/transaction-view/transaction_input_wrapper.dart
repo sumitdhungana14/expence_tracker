@@ -19,9 +19,9 @@ class _TransactionListInputWrapperState
     });
   }
 
-  void removeTransaction(String id) {
+  void removeTransaction(int index) {
     setState(() {
-      transactions.removeWhere((element) => element.id == id);
+      transactions.removeAt(index);
     });
   }
 

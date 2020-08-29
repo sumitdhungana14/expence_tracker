@@ -10,13 +10,18 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: transactions
-            .map((transaction) => Card(
-                  elevation: 5,
-                  child: TransactionDetails(transaction: transaction, remove: removeTransaction),
-                ))
-            .toList());
+    return Container(
+      height: 250,
+      child: ListView.builder(
+        itemBuilder: (context, index) {
+          return Card(
+            elevation: 5,
+            child: TransactionDetails(
+                transaction: transactions[index], index: index, remove: removeTransaction),
+          );
+        },
+        itemCount: transactions.length,
+      ),
+    );
   }
 }

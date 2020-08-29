@@ -5,14 +5,15 @@ import 'package:expence_tracker/models/transaction.dart';
 
 class TransactionDetails extends StatelessWidget {
   final Transaction transaction;
+  final int index;
   final Function remove;
 
-  TransactionDetails({this.transaction, this.remove});
+  TransactionDetails({this.transaction, this.index, this.remove});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => remove(transaction.id),
+      onTap: () => remove(index),
       child: Container(
         child: Row(children: [
           Container(
