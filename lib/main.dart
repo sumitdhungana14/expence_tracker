@@ -1,6 +1,6 @@
 import 'package:expence_tracker/mock/transaction_mock.dart';
 import 'package:expence_tracker/model/transaction.dart';
-import 'package:expence_tracker/transaction-view/transaction-wrapper.dart';
+import 'package:expence_tracker/transaction-view/transaction_wrapper.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -43,11 +43,8 @@ class MyHomePage extends StatelessWidget {
                   width: double.infinity,
                   child: Text('Chart')),
             ),
-            Card(
-                child: Container(
-                    padding: EdgeInsets.all(50),
-                    width: double.infinity,
-                    child: TransactionWrapper(transactions: transactions))),
+            Container(
+                child: TransactionWrapper(transactions: transactions)),
           ]),
           floatingActionButton: FloatingActionButton(
             onPressed: () {},
