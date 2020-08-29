@@ -1,3 +1,6 @@
+import 'package:expence_tracker/mock/transaction_mock.dart';
+import 'package:expence_tracker/model/transaction.dart';
+import 'package:expence_tracker/transaction-view/transaction-wrapper.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -19,6 +22,8 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   final String title;
 
+  final List<Transaction> transactions = TransactionMock.getAll();
+
   MyHomePage({this.title});
 
   @override
@@ -27,33 +32,30 @@ class MyHomePage extends StatelessWidget {
     return MaterialApp(
         title: 'Flutter App',
         home: Scaffold(
-            appBar: AppBar(
-              title: Text('Expence Tracer'),
+          appBar: AppBar(
+            title: Text('Expence Tracer'),
+          ),
+          body: Column(children: <Widget>[
+            Card(
+              elevation: 5,
+              child: Container(
+                  padding: EdgeInsets.all(50),
+                  width: double.infinity,
+                  child: Text('Chart')),
             ),
-            body: Column(
-                children: <Widget>[
-              Card(
-                elevation: 5,
+            Card(
                 child: Container(
-                  padding: EdgeInsets.all(50),
-                  width: double.infinity,
-                    child: Text('Chart')
-                  ),
-              ),
-              Card(child: Container(
-                  padding: EdgeInsets.all(50),
-                  width: double.infinity,
-                  child: Text('Transaction List')
-                )),
-            ]),
-            floatingActionButton: FloatingActionButton(
-              onPressed: (){
-
-              },
-              child: Text('+',
-              style: TextStyle(
-                fontSize: 22
-              ),),
-            ),));
+                    padding: EdgeInsets.all(50),
+                    width: double.infinity,
+                    child: TransactionWrapper(transactions: transactions))),
+          ]),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {},
+            child: Text(
+              '+',
+              style: TextStyle(fontSize: 22),
+            ),
+          ),
+        ));
   }
 }
