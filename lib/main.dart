@@ -1,5 +1,6 @@
 import 'package:expence_tracker/mock/transaction_mock.dart';
 import 'package:expence_tracker/model/transaction.dart';
+import 'package:expence_tracker/transaction-view/transaction_input.dart';
 import 'package:expence_tracker/transaction-view/transaction_wrapper.dart';
 import 'package:flutter/material.dart';
 
@@ -43,8 +44,8 @@ class MyHomePage extends StatelessWidget {
                   width: double.infinity,
                   child: Text('Chart')),
             ),
-            Container(
-                child: TransactionWrapper(transactions: transactions)),
+            TransactionInput(),
+            Container(child: TransactionWrapper(transactions: transactions)),
           ]),
           floatingActionButton: FloatingActionButton(
             onPressed: () {},
