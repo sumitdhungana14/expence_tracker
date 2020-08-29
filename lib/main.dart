@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
@@ -18,49 +16,44 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
+class MyHomePage extends StatelessWidget {
   final String title;
 
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  MyHomePage({this.title});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-         mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+    // TODO: implement build
+    return MaterialApp(
+        title: 'Flutter App',
+        home: Scaffold(
+            appBar: AppBar(
+              title: Text('Expence Tracer'),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
-    );
+            body: Column(
+                children: <Widget>[
+              Card(
+                elevation: 5,
+                child: Container(
+                  padding: EdgeInsets.all(50),
+                  width: double.infinity,
+                    child: Text('Chart')
+                  ),
+              ),
+              Card(child: Container(
+                  padding: EdgeInsets.all(50),
+                  width: double.infinity,
+                  child: Text('Transaction List')
+                )),
+            ]),
+            floatingActionButton: FloatingActionButton(
+              onPressed: (){
+
+              },
+              child: Text('+',
+              style: TextStyle(
+                fontSize: 22
+              ),),
+            ),));
   }
 }
