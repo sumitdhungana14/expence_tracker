@@ -21,7 +21,7 @@ class TransactionDetails extends StatelessWidget {
               vertical: 10,
               horizontal: 20,
             ),
-            child: Text('Rs. ${transaction.amount}',
+            child: Text('\$. ${transaction.amount}',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,

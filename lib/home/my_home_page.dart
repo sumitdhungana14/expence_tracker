@@ -9,6 +9,12 @@ class MyHomePage extends StatelessWidget {
         home: Scaffold(
           appBar: AppBar(
             title: Text('Expence Tracer'),
+            actions: [
+              IconButton(
+                icon: Icon(Icons.add),
+                onPressed: (){},
+              )
+            ],
           ),
           body: SingleChildScrollView(
             child: Column(children: <Widget>[
@@ -24,10 +30,7 @@ class MyHomePage extends StatelessWidget {
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {},
-            child: Text(
-              '+',
-              style: TextStyle(fontSize: 22),
-            ),
+            child: Icon(Icons.add),
           ),
         ));
   }
