@@ -1,13 +1,19 @@
 import 'package:expence_tracker/models/transaction.dart';
 import 'package:flutter/material.dart';
 
-class TransactionInput extends StatelessWidget {
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
-
+class TransactionInput extends StatefulWidget {
   final Function add;
 
   TransactionInput({this.add});
+
+  @override
+  _TransactionInputState createState() => _TransactionInputState();
+}
+
+class _TransactionInputState extends State<TransactionInput> {
+  final titleController = TextEditingController();
+
+  final amountController = TextEditingController();
 
   void submitted() {
     String title = titleController.text;
@@ -17,7 +23,7 @@ class TransactionInput extends StatelessWidget {
       return;
     }
 
-    add(Transaction(
+    widget.add(Transaction(
         id: DateTime.now().toString(),
         title: title,
         amount: amount,
