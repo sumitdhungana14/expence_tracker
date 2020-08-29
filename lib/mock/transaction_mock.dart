@@ -1,4 +1,4 @@
-import 'package:expence_tracker/model/transaction.dart';
+import 'package:expence_tracker/models/transaction.dart';
 
 class TransactionMock extends Transaction {
   static List<Transaction> getAll() {
