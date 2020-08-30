@@ -28,6 +28,8 @@ class _TransactionInputState extends State<TransactionInput> {
         title: title,
         amount: amount,
         dateTime: DateTime.now()));
+    
+    Navigator.of(context).pop();
   }
 
   @override

@@ -41,7 +41,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Expence Tracer'),
+        title: Text('Expence Tracer',
+            style: Theme.of(context).appBarTheme.textTheme.headline6),
         actions: [
           IconButton(
             icon: Icon(Icons.add),

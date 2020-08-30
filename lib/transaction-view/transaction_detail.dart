@@ -22,12 +22,9 @@ class TransactionDetails extends StatelessWidget {
               horizontal: 20,
             ),
             child: Text('\$${transaction.amount}',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.purple,
-                )),
-            decoration: BoxDecoration(color: Colors.amber),
+                style: Theme.of(context).textTheme.headline6),
+            decoration:
+                BoxDecoration(color: Theme.of(context).primaryColorLight),
             padding: EdgeInsets.all(10),
           ),
           Container(
@@ -36,15 +33,11 @@ class TransactionDetails extends StatelessWidget {
             children: [
               Text(
                 transaction.title.toUpperCase(),
-                style: TextStyle(
-                    color: Colors.blue,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500),
+                style: Theme.of(context).textTheme.headline6
               ),
               Text(
                 DateFormat.yMMMd().format(transaction.dateTime),
-                style:
-                    TextStyle(color: Colors.grey, fontWeight: FontWeight.w400),
+                style: Theme.of(context).textTheme.headline5
               )
             ],
           ))
