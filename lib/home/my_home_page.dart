@@ -1,8 +1,11 @@
+import 'package:expence_tracker/chart-view/chart_wrapper.dart';
 import 'package:expence_tracker/models/transaction.dart';
 import 'package:expence_tracker/transaction-view/transaction_empty.dart';
 import 'package:expence_tracker/transaction-view/transaction_input.dart';
 import 'package:expence_tracker/transaction-view/transaction_list.dart';
+
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -32,6 +35,11 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
+  List<Transaction> get lastSevenDaysTransaction {
+    return transactions.where((transaction) =>
+        transaction.dateTime.difference(DateTime.now()).inDays < 7).toList();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -55,13 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(children: <Widget>[
           transactions.isEmpty
               ? TransactionEmpty()
-              : Card(
-                  elevation: 5,
-                  child: Container(
-                      padding: EdgeInsets.all(50),
-                      width: double.infinity,
-                      child: Text('Chart')),
-                ),
+              : ChartWrapper(lastSevenDaysTransaction),
           TransactionList(
             transactions: transactions,
             removeTransaction: removeTransaction,
