@@ -1,4 +1,3 @@
-import 'package:expence_tracker/transaction-view/transaction_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../models/transaction.dart';

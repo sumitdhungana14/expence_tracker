@@ -1,5 +1,6 @@
 import 'package:expence_tracker/models/transaction.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class TransactionInput extends StatefulWidget {
   final Function add;
@@ -15,11 +16,13 @@ class _TransactionInputState extends State<TransactionInput> {
 
   final amountController = TextEditingController();
 
+  DateTime transactionDate;
+
   void submitted() {
     String title = titleController.text;
     double amount = double.parse(amountController.text);
 
-    if (title == null || amount == null) {
+    if (title == null || amount == null || transactionDate == null) {
       return;
     }
 
@@ -27,9 +30,25 @@ class _TransactionInputState extends State<TransactionInput> {
         id: DateTime.now().toString(),
         title: title,
         amount: amount,
-        dateTime: DateTime.now()));
-    
+        dateTime: transactionDate));
+
     Navigator.of(context).pop();
+  }
+
+  void bringDatePicker(BuildContext context) {
+    showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2019),
+            lastDate: DateTime.now())
+        .then((dateTime) {
+      if (dateTime == null) {
+        return;
+      }
+      setState(() {
+        transactionDate = dateTime;
+      });
+    });
   }
 
   @override
@@ -51,9 +70,27 @@ class _TransactionInputState extends State<TransactionInput> {
               keyboardType: TextInputType.number,
             ),
             SizedBox(height: 10),
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 10, 0, 20),
+              child: Row(children: [
+                transactionDate == null
+                    ? Text('Pick a date!')
+                    : Text(DateFormat.yMMMd().format(transactionDate)),
+                IconButton(
+                  icon: Icon(
+                    Icons.calendar_today,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  onPressed: () => bringDatePicker(context),
+                  iconSize: 30,
+                )
+              ]),
+            ),
             RaisedButton(
               child: Text('Add'),
-              onPressed: () => submitted,
+              color: Theme.of(context).primaryColor,
+              textColor: Colors.white,
+              onPressed: submitted,
             )
           ],
         ),
