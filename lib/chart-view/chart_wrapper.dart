@@ -46,7 +46,6 @@ class ChartWrapper extends StatelessWidget {
         elevation: 5,
         child: Container(
           padding: EdgeInsets.all(10),
-          width: double.infinity,
           child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween, //can as well remove this line,
               children: groupedTransactionValues
