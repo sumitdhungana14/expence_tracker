@@ -1,3 +1,4 @@
+import 'package:expence_tracker/chart-view/chart_detail.dart';
 import 'package:expence_tracker/models/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -22,20 +23,39 @@ class ChartWrapper extends StatelessWidget {
       currentWeekDayTransaction
           .forEach((element) => totalSum += element.amount);
 
-      return {'day': DateFormat.E().format(weekDay).substring(0,1), 'amount': totalSum};
+      return {
+        'day': DateFormat.E().format(weekDay).substring(0, 1),
+        'amount': totalSum
+      };
     });
+  }
+
+  double get totalSpendingOfWeek {
+    return groupedTransactionValues.fold(
+        0.0, (sum, transaction) => sum + transaction['amount']);
+  }
+
+  double getPercentageOfTotalSpending(double spending) {
+    return spending == 0.0 ? 0.0 : spending / totalSpendingOfWeek;
   }
 
   @override
   Widget build(BuildContext context) {
-    print(groupedTransactionValues);
     return Card(
-      margin: EdgeInsets.fromLTRB(5, 20, 5, 10),
-      elevation: 5,
-      child: Container(
+        margin: EdgeInsets.fromLTRB(5, 20, 5, 10),
+        elevation: 5,
+        child: Container(
           padding: EdgeInsets.all(10),
           width: double.infinity,
-          child: Text('Chart')),
-    );
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: groupedTransactionValues
+                  .map((e) => Flexible(
+                        fit: FlexFit.tight,
+                        child: ChartDetail(
+                            e, getPercentageOfTotalSpending(e['amount'])),
+                      ))
+                  .toList()),
+        ));
   }
 }
