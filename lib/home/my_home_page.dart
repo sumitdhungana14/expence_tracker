@@ -1,4 +1,5 @@
 import 'package:expence_tracker/models/transaction.dart';
+import 'package:expence_tracker/transaction-view/transaction_empty.dart';
 import 'package:expence_tracker/transaction-view/transaction_input.dart';
 import 'package:expence_tracker/transaction-view/transaction_list.dart';
 import 'package:flutter/material.dart';
@@ -52,17 +53,19 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: SingleChildScrollView(
         child: Column(children: <Widget>[
-          Card(
-            elevation: 5,
-            child: Container(
-                padding: EdgeInsets.all(50),
-                width: double.infinity,
-                child: Text('Chart')),
-          ),
+          transactions.isEmpty
+              ? TransactionEmpty()
+              : Card(
+                  elevation: 5,
+                  child: Container(
+                      padding: EdgeInsets.all(50),
+                      width: double.infinity,
+                      child: Text('Chart')),
+                ),
           TransactionList(
             transactions: transactions,
             removeTransaction: removeTransaction,
-          ),
+          )
         ]),
       ),
       floatingActionButton: FloatingActionButton(
