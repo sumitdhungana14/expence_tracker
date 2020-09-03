@@ -16,6 +16,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   List<Transaction> transactions;
 
+  bool showChart = true;
+
   void addTransaction(Transaction transaction) {
     setState(() {
       transactions.add(transaction);
@@ -53,6 +55,30 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final appBar = MyAppBar.appBar(context, startAddNewTransaction);
     final deviceHeight = DeviceInfo.getDeviceHeight(context, appBar);
+    final txList = Container(
+      height: deviceHeight * 0.7,
+      child: TransactionList(
+        transactions: transactions,
+        removeTransaction: removeTransaction,
+      ),
+    );
+    final isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
+    final toggelWidget = Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text("Show chart"),
+        Switch(
+          value: showChart,
+          onChanged: (val) {
+            setState(() {
+              showChart = val;
+            });
+          },
+        ),
+      ],
+    );
 
     return Scaffold(
       appBar: appBar,
@@ -62,16 +88,18 @@ class _MyHomePageState extends State<MyHomePage> {
               ? Center(child: TransactionEmpty(deviceHeight))
               : Column(
                   children: [
-                    Container(
-                        height: deviceHeight * 0.3,
-                        child: ChartWrapper(lastSevenDaysTransaction)),
-                    Container(
-                      height: deviceHeight * 0.7,
-                      child: TransactionList(
-                        transactions: transactions,
-                        removeTransaction: removeTransaction,
-                      ),
-                    )
+                    if (isLandscape) toggelWidget,
+                    if (isLandscape)
+                      showChart
+                          ? Container(
+                              height: deviceHeight * 0.7,
+                              child: ChartWrapper(lastSevenDaysTransaction))
+                          : txList,
+                    if (!isLandscape)
+                      Container(
+                          height: deviceHeight * 0.3,
+                          child: ChartWrapper(lastSevenDaysTransaction)),
+                    if (!isLandscape) txList
                   ],
                 )
         ]),
