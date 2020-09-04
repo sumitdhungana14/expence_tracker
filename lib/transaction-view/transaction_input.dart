@@ -53,46 +53,52 @@ class _TransactionInputState extends State<TransactionInput> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-        padding: EdgeInsets.all(15),
-        child: Column(
-          children: [
-            TextField(
-              decoration: InputDecoration(labelText: 'Title'),
-              controller: titleController,
-              onSubmitted: (_) => submitted(),
-            ),
-            TextField(
-              decoration: InputDecoration(labelText: 'Amount'),
-              controller: amountController,
-              onSubmitted: (_) => submitted(),
-              keyboardType: TextInputType.number,
-            ),
-            SizedBox(height: 10),
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 10, 0, 20),
-              child: Row(children: [
-                transactionDate == null
-                    ? Text('Pick a date!')
-                    : Text(DateFormat.yMMMd().format(transactionDate)),
-                IconButton(
-                  icon: Icon(
-                    Icons.calendar_today,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  onPressed: () => bringDatePicker(context),
-                  iconSize: 30,
-                )
-              ]),
-            ),
-            RaisedButton(
-              child: Text('Add'),
-              color: Theme.of(context).primaryColor,
-              textColor: Colors.white,
-              onPressed: submitted,
-            )
-          ],
+    return SingleChildScrollView(
+      child: Card(
+        child: Container(
+          padding: EdgeInsets.only(
+              top: 15,
+              right: 15,
+              left: 15,
+              bottom: MediaQuery.of(context).viewInsets.bottom + 15),
+          child: Column(
+            children: [
+              TextField(
+                decoration: InputDecoration(labelText: 'Title'),
+                controller: titleController,
+                onSubmitted: (_) => submitted(),
+              ),
+              TextField(
+                decoration: InputDecoration(labelText: 'Amount'),
+                controller: amountController,
+                onSubmitted: (_) => submitted(),
+                keyboardType: TextInputType.number,
+              ),
+              SizedBox(height: 10),
+              Container(
+                margin: EdgeInsets.fromLTRB(0, 10, 0, 20),
+                child: Row(children: [
+                  transactionDate == null
+                      ? Text('Pick a date!')
+                      : Text(DateFormat.yMMMd().format(transactionDate)),
+                  IconButton(
+                    icon: Icon(
+                      Icons.calendar_today,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    onPressed: () => bringDatePicker(context),
+                    iconSize: 30,
+                  )
+                ]),
+              ),
+              RaisedButton(
+                child: Text('Add'),
+                color: Theme.of(context).primaryColor,
+                textColor: Colors.white,
+                onPressed: submitted,
+              )
+            ],
+          ),
         ),
       ),
     );
