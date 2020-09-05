@@ -45,6 +45,27 @@ class _MyHomePageState extends State<MyHomePage> {
         .toList();
   }
 
+  List<Widget> getPortraitContent(double deviceHeight, Widget txList) {
+    return [
+      Container(
+          height: deviceHeight * 0.3,
+          child: ChartWrapper(lastSevenDaysTransaction)),
+      txList
+    ];
+  }
+
+  List<Widget> getLandscapeContent(
+      double deviceHeight, Widget txList, Widget toogleWidget) {
+    return [
+      toogleWidget,
+      showChart
+          ? Container(
+              height: deviceHeight * 0.7,
+              child: ChartWrapper(lastSevenDaysTransaction))
+          : txList,
+    ];
+  }
+
   @override
   void initState() {
     super.initState();
@@ -65,10 +86,10 @@ class _MyHomePageState extends State<MyHomePage> {
     final isLandscape =
         MediaQuery.of(context).orientation == Orientation.landscape;
 
-    final toggelWidget = Row(
+    final toggleWidget = Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("Show chart"),
+        const Text("Show chart"),
         Switch(
           value: showChart,
           onChanged: (val) {
@@ -88,18 +109,10 @@ class _MyHomePageState extends State<MyHomePage> {
               ? Center(child: TransactionEmpty(deviceHeight))
               : Column(
                   children: [
-                    if (isLandscape) toggelWidget,
                     if (isLandscape)
-                      showChart
-                          ? Container(
-                              height: deviceHeight * 0.7,
-                              child: ChartWrapper(lastSevenDaysTransaction))
-                          : txList,
+                      ...getLandscapeContent(deviceHeight, txList, toggleWidget),
                     if (!isLandscape)
-                      Container(
-                          height: deviceHeight * 0.3,
-                          child: ChartWrapper(lastSevenDaysTransaction)),
-                    if (!isLandscape) txList
+                      ...getPortraitContent(deviceHeight, txList)
                   ],
                 )
         ]),
